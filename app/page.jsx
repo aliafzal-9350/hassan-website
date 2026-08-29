@@ -83,7 +83,7 @@ export default function HomePage() {
 
                     <div className="flex items-center gap-2 sm:gap-4 text-xs font-mono">
                         <span className="hidden lg:inline text-slate-400 font-sans">
-                            Wilmington, DE & NY/NJ • JFK Expedited • Operating Nationwide
+                            Wilmington, DE • Operating All Over USA • JFK Corridors
                         </span>
                         <span className="text-sky-400 font-bold bg-sky-400/10 px-2 py-0.5 rounded border border-sky-400/20 sm:bg-transparent sm:p-0 sm:border-0">
                             MC# 1508261
@@ -240,7 +240,7 @@ export default function HomePage() {
                         </div>
 
                         <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-md font-medium">
-                            Commercial 26ft dock-high freight with heavy-duty Maxon liftgate. Local expedited operations across NY & NJ, with dedicated daily JFK Airport corridors.
+                            Commercial 26ft dock-high freight with heavy-duty Maxon liftgate. Expedited operations all over USA, with dedicated daily JFK Airport corridors.
                         </p>
 
                         <div className="flex flex-wrap items-center gap-3 pt-1 pointer-events-auto">
@@ -296,7 +296,7 @@ export default function HomePage() {
                 <div className="space-y-3.5">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-[11px] font-mono font-bold tracking-wider uppercase">
                         <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-ping" />
-                        <span>LOCAL JFK & NATIONWIDE FLEET</span>
+                        <span>ALL OVER USA & JFK CORRIDORS</span>
                     </div>
 
                     <h1 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight leading-[0.95]">
@@ -309,7 +309,7 @@ export default function HomePage() {
                     </h1>
 
                     <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-lg font-medium">
-                        Commercial 26ft dock-high freight with heavy-duty Maxon liftgate. Local expedited operations across NY & NJ, with dedicated daily JFK Airport corridors.
+                        Commercial 26ft dock-high freight with heavy-duty Maxon liftgate. Expedited operations all over USA, with dedicated daily JFK Airport corridors.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
