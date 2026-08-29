@@ -117,7 +117,7 @@ function Model({ activePreset }) {
 
     return (
         <group ref={groupRef}>
-            <Center top position={[0.45, 0, 0]}>
+            <Center top>
                 <primitive object={scene} scale={[100, 100, 100]} />
                 <DecalsAndLettering />
             </Center>
