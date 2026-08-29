@@ -387,7 +387,7 @@ export default function HomePage() {
                         <div className="space-y-2 text-xs border-t border-white/[0.06] pt-3 text-slate-300">
                             <div className="flex justify-between">
                                 <span className="text-slate-500">Dimensions</span>
-                                <span className="font-semibold text-slate-200">26ft × 102" × 102"</span>
+                                <span className="font-semibold text-slate-200">26ft × 95" × 95"</span>
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-slate-500">Volume</span>
