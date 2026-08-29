@@ -219,18 +219,18 @@ export default function HomePage() {
 
             {/* 3. HERO SECTION (DUAL EXPERIENCE: FULL-BLEED DESKTOP & DEDICATED MOBILE STAGE) */}
             
-            {/* 3A. DESKTOP HERO (lg and above) */}
-            <section id="hero" className="hidden lg:flex relative w-full h-[calc(100vh-112px)] min-h-[620px] max-h-[920px] flex-col justify-between overflow-hidden">
+            {/* 3A. DESKTOP HERO (lg and above - Single Viewport Fit) */}
+            <section id="hero" className="hidden lg:flex relative w-full h-[calc(100vh-104px)] min-h-[520px] max-h-[840px] flex-col justify-between overflow-hidden py-3">
                 {/* Background 3D Viewport Layer */}
                 <div className="absolute inset-0 z-0">
                     <TruckCanvas activePreset={activePreset} />
-                    <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-[#080C10]/85 pointer-events-none" />
+                    <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-[#080C10]/80 pointer-events-none" />
                 </div>
 
                 {/* Hero Editorial Overlay */}
-                <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 pt-10 sm:pt-14 pointer-events-none flex-1 flex flex-col justify-center">
-                    <div className="max-w-2xl space-y-5">
-                        <div className="space-y-0 text-white font-black tracking-tight leading-[0.92] uppercase text-5xl xl:text-6xl 2xl:text-7xl">
+                <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 pt-4 pointer-events-none flex-1 flex flex-col justify-center">
+                    <div className="max-w-xl space-y-3.5">
+                        <div className="space-y-0 text-white font-black tracking-tight leading-[0.92] uppercase text-4xl xl:text-5xl 2xl:text-6xl">
                             <div>DRIVEN BY</div>
                             <div>HONOR.</div>
                             <div>DELIVERED WITH</div>
@@ -239,23 +239,23 @@ export default function HomePage() {
                             </div>
                         </div>
 
-                        <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-lg font-medium pt-1">
-                            UMAJA LOGISTICS LLC delivers commercial 26ft dock-high straight box transport with heavy-duty Maxon liftgate operations. Specializing in local expedited freight across New York & New Jersey, with dedicated daily operations around JFK Airport corridors. TSA Change 10 and TWIC credentialed for high-security port and airport ramps nationwide.
+                        <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-md font-medium">
+                            Commercial 26ft dock-high freight with heavy-duty Maxon liftgate. Local expedited operations across NY & NJ, with dedicated daily JFK Airport corridors.
                         </p>
 
-                        <div className="flex flex-wrap items-center gap-3.5 pt-2 pointer-events-auto">
+                        <div className="flex flex-wrap items-center gap-3 pt-1 pointer-events-auto">
                             <a
                                 href="#contact"
-                                className="bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs sm:text-sm font-black uppercase tracking-wider px-7 py-3.5 rounded-xl transition shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 flex items-center gap-2"
+                                className="bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-black uppercase tracking-wider px-6 py-3 rounded-xl transition shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 flex items-center gap-2"
                             >
                                 <span>Book Dedicated Run</span>
-                                <ChevronRight className="w-4 h-4" />
+                                <ChevronRight className="w-3.5 h-3.5" />
                             </a>
                             <a
                                 href="tel:6469736672"
-                                className="bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-md border border-white/[0.1] text-slate-200 text-xs sm:text-sm font-bold px-5 py-3.5 rounded-xl transition flex items-center gap-2"
+                                className="bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-md border border-white/[0.1] text-slate-200 text-xs font-bold px-4 py-3 rounded-xl transition flex items-center gap-2"
                             >
-                                <Phone className="w-4 h-4 text-sky-400" />
+                                <Phone className="w-3.5 h-3.5 text-sky-400" />
                                 <span>Direct Dispatch: (646) 973-6672</span>
                             </a>
                         </div>
@@ -263,7 +263,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Floating View Controller Dock (Bottom) */}
-                <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 pb-8 pointer-events-none flex items-center justify-between gap-4">
+                <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 pb-2 pointer-events-none flex items-center justify-between gap-4">
                     <div className="flex items-center gap-2 text-xs font-mono text-slate-400 pointer-events-auto">
                         <RotateCcw className="w-3.5 h-3.5 text-sky-400" />
                         <span>INTERACTIVE 3D • DRAG TO ROTATE</span>
@@ -292,8 +292,8 @@ export default function HomePage() {
             </section>
 
             {/* 3B. MOBILE & TABLET HERO (< lg) */}
-            <section className="lg:hidden py-8 sm:py-12 px-4 sm:px-6 max-w-7xl mx-auto space-y-6">
-                <div className="space-y-4">
+            <section className="lg:hidden py-8 sm:py-12 px-4 sm:px-6 max-w-7xl mx-auto space-y-5">
+                <div className="space-y-3.5">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-[11px] font-mono font-bold tracking-wider uppercase">
                         <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-ping" />
                         <span>LOCAL JFK & NATIONWIDE FLEET</span>
@@ -309,7 +309,7 @@ export default function HomePage() {
                     </h1>
 
                     <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-lg font-medium">
-                        UMAJA LOGISTICS LLC delivers commercial 26ft dock-high straight box transport with heavy-duty Maxon liftgate operations. Specializing in local expedited freight across New York & New Jersey, with dedicated daily operations around JFK Airport corridors. TSA Change 10 and TWIC credentialed for high-security port and airport ramps nationwide.
+                        Commercial 26ft dock-high freight with heavy-duty Maxon liftgate. Local expedited operations across NY & NJ, with dedicated daily JFK Airport corridors.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
