@@ -83,7 +83,7 @@ export default function HomePage() {
 
                     <div className="flex items-center gap-2 sm:gap-4 text-xs font-mono">
                         <span className="hidden lg:inline text-slate-400 font-sans">
-                            Wilmington, DE • Operating Nationwide
+                            Wilmington, DE & NY/NJ • JFK Expedited • Operating Nationwide
                         </span>
                         <span className="text-sky-400 font-bold bg-sky-400/10 px-2 py-0.5 rounded border border-sky-400/20 sm:bg-transparent sm:p-0 sm:border-0">
                             MC# 1508261
@@ -230,16 +230,17 @@ export default function HomePage() {
                 {/* Hero Editorial Overlay */}
                 <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 pt-10 sm:pt-14 pointer-events-none flex-1 flex flex-col justify-center">
                     <div className="max-w-2xl space-y-5">
-                        <div className="space-y-0 text-white font-black tracking-tight leading-[0.92] uppercase text-6xl xl:text-7xl">
-                            <div>PRECISION</div>
-                            <div>EXPEDITED</div>
+                        <div className="space-y-0 text-white font-black tracking-tight leading-[0.92] uppercase text-5xl xl:text-6xl 2xl:text-7xl">
+                            <div>DRIVEN BY</div>
+                            <div>HONOR.</div>
+                            <div>DELIVERED WITH</div>
                             <div className="bg-gradient-to-r from-sky-400 to-cyan-200 bg-clip-text text-transparent">
-                                FREIGHT.
+                                PRIDE.
                             </div>
                         </div>
 
                         <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-lg font-medium pt-1">
-                            UMAJA LOGISTICS LLC delivers commercial 26ft dock-high straight box transport with heavy-duty Maxon liftgate operations. TSA Change 10 and TWIC credentialed for high-security corridors nationwide.
+                            UMAJA LOGISTICS LLC delivers commercial 26ft dock-high straight box transport with heavy-duty Maxon liftgate operations. Specializing in local expedited freight across New York & New Jersey, with dedicated daily operations around JFK Airport corridors. TSA Change 10 and TWIC credentialed for high-security port and airport ramps nationwide.
                         </p>
 
                         <div className="flex flex-wrap items-center gap-3.5 pt-2 pointer-events-auto">
@@ -295,19 +296,20 @@ export default function HomePage() {
                 <div className="space-y-4">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-[11px] font-mono font-bold tracking-wider uppercase">
                         <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-ping" />
-                        <span>DEDICATED EXPEDITED FLEET</span>
+                        <span>LOCAL JFK & NATIONWIDE FLEET</span>
                     </div>
 
                     <h1 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight leading-[0.95]">
-                        <div>PRECISION</div>
-                        <div>EXPEDITED</div>
+                        <div>DRIVEN BY</div>
+                        <div>HONOR.</div>
+                        <div>DELIVERED WITH</div>
                         <div className="bg-gradient-to-r from-sky-400 to-cyan-200 bg-clip-text text-transparent">
-                            FREIGHT.
+                            PRIDE.
                         </div>
                     </h1>
 
                     <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-lg font-medium">
-                        UMAJA LOGISTICS LLC delivers commercial 26ft dock-high straight box transport with heavy-duty Maxon liftgate operations. TSA Change 10 and TWIC credentialed for high-security corridors nationwide.
+                        UMAJA LOGISTICS LLC delivers commercial 26ft dock-high straight box transport with heavy-duty Maxon liftgate operations. Specializing in local expedited freight across New York & New Jersey, with dedicated daily operations around JFK Airport corridors. TSA Change 10 and TWIC credentialed for high-security port and airport ramps nationwide.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
