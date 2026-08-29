@@ -2,199 +2,230 @@
 
 import React, { Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Environment, ContactShadows, Center, Bounds, Text } from '@react-three/drei';
+import { OrbitControls, useGLTF, useTexture, Environment, ContactShadows, Center, Bounds, Text } from '@react-three/drei';
 import * as THREE from 'three';
 
-function DecalsAndLettering() {
-    const usdotText = `UMAJA LOGISTICS LLC\n128 SUNSET BLVD # 1345\nNEW CASTLE, DE 19720\nMC# 1508261\nDOT # 4008008`;
+function FrontEagleBanner() {
+    const flagTexture = useTexture('/images/truck-flag-eagle.jpg');
 
     return (
+        <group position={[0, 2.68, 1.572]} rotation={[0, 0, 0]}>
+            {/* American Flag & Bald Eagle Artwork Banner */}
+            <mesh position={[0, 0, 0.002]}>
+                <planeGeometry args={[2.34, 0.68]} />
+                <meshStandardMaterial
+                    map={flagTexture}
+                    roughness={0.35}
+                    metalness={0.1}
+                    polygonOffset
+                    polygonOffsetFactor={-2}
+                    polygonOffsetUnits={-2}
+                />
+            </mesh>
+
+            {/* Subtle Metallic Frame Bezel */}
+            <mesh position={[0, 0, 0]}>
+                <planeGeometry args={[2.37, 0.71]} />
+                <meshStandardMaterial
+                    color="#334155"
+                    roughness={0.2}
+                    metalness={0.8}
+                    polygonOffset
+                    polygonOffsetFactor={-1}
+                    polygonOffsetUnits={-1}
+                />
+            </mesh>
+        </group>
+    );
+}
+
+function CabDoorDecal({ isDriverSide }) {
+    const xPos = isDriverSide ? -1.228 : 1.228;
+    const yRot = isDriverSide ? -Math.PI / 2 : Math.PI / 2;
+
+    return (
+        <group position={[xPos, 1.42, 2.45]} rotation={[0, yRot, 0]}>
+            {/* White Compliance Plaque Decal Sticker */}
+            <mesh position={[0, 0, 0.001]}>
+                <planeGeometry args={[0.62, 0.38]} />
+                <meshStandardMaterial
+                    color="#FFFFFF"
+                    roughness={0.25}
+                    metalness={0.05}
+                    polygonOffset
+                    polygonOffsetFactor={-2}
+                    polygonOffsetUnits={-2}
+                />
+            </mesh>
+
+            {/* Navy Plaque Border */}
+            <mesh position={[0, 0, 0]}>
+                <planeGeometry args={[0.635, 0.395]} />
+                <meshBasicMaterial
+                    color="#0F172A"
+                    polygonOffset
+                    polygonOffsetFactor={-1}
+                    polygonOffsetUnits={-1}
+                />
+            </mesh>
+
+            {/* Carrier Name Header */}
+            <Text
+                position={[0, 0.11, 0.004]}
+                fontSize={0.052}
+                letterSpacing={0.01}
+                color="#0F172A"
+                anchorX="center"
+                anchorY="middle"
+                fontWeight="black"
+                material-toneMapped={false}
+                material-polygonOffset={true}
+                material-polygonOffsetFactor={-3}
+            >
+                UMAJA LOGISTICS LLC
+            </Text>
+
+            {/* Location & Authority */}
+            <Text
+                position={[0, 0.045, 0.004]}
+                fontSize={0.034}
+                letterSpacing={0.02}
+                color="#334155"
+                anchorX="center"
+                anchorY="middle"
+                fontWeight="bold"
+                material-toneMapped={false}
+                material-polygonOffset={true}
+                material-polygonOffsetFactor={-3}
+            >
+                WILMINGTON, DE
+            </Text>
+
+            {/* Blue Divider Line */}
+            <mesh position={[0, 0.015, 0.004]}>
+                <planeGeometry args={[0.54, 0.008]} />
+                <meshBasicMaterial
+                    color="#0284C7"
+                    polygonOffset
+                    polygonOffsetFactor={-3}
+                    polygonOffsetUnits={-3}
+                />
+            </mesh>
+
+            {/* USDOT & MC Number Details */}
+            <Text
+                position={[0, -0.035, 0.004]}
+                fontSize={0.033}
+                letterSpacing={0.02}
+                color="#0F172A"
+                anchorX="center"
+                anchorY="middle"
+                fontWeight="bold"
+                material-toneMapped={false}
+                material-polygonOffset={true}
+                material-polygonOffsetFactor={-3}
+            >
+                USDOT 4008008
+            </Text>
+
+            <Text
+                position={[0, -0.09, 0.004]}
+                fontSize={0.033}
+                letterSpacing={0.02}
+                color="#0284C7"
+                anchorX="center"
+                anchorY="middle"
+                fontWeight="bold"
+                material-toneMapped={false}
+                material-polygonOffset={true}
+                material-polygonOffsetFactor={-3}
+            >
+                MC# 1508261
+            </Text>
+
+            <Text
+                position={[0, -0.14, 0.004]}
+                fontSize={0.026}
+                letterSpacing={0.04}
+                color="#64748B"
+                anchorX="center"
+                anchorY="middle"
+                fontWeight="bold"
+                material-toneMapped={false}
+                material-polygonOffset={true}
+                material-polygonOffsetFactor={-3}
+            >
+                26FT DOCK HIGH • LIFTGATE
+            </Text>
+        </group>
+    );
+}
+
+function CargoBoxBranding({ isDriverSide }) {
+    const xPos = isDriverSide ? -1.295 : 1.295;
+    const yRot = isDriverSide ? -Math.PI / 2 : Math.PI / 2;
+
+    return (
+        <group position={[xPos, 2.10, -1.18]} rotation={[0, yRot, 0]}>
+            {/* Primary Fleet Header Wordmark */}
+            <Text
+                position={[0, 0.05, 0.002]}
+                fontSize={0.34}
+                letterSpacing={-0.02}
+                color="#0B1117"
+                anchorX="center"
+                anchorY="middle"
+                fontWeight="black"
+                material-toneMapped={false}
+                material-polygonOffset={true}
+                material-polygonOffsetFactor={-2}
+            >
+                UMAJA LOGISTICS
+            </Text>
+
+            {/* Subtle Sky Blue Accent Stripe */}
+            <mesh position={[0, -0.16, 0.002]}>
+                <planeGeometry args={[3.2, 0.024]} />
+                <meshBasicMaterial
+                    color="#0284C7"
+                    polygonOffset
+                    polygonOffsetFactor={-2}
+                    polygonOffsetUnits={-2}
+                />
+            </mesh>
+
+            {/* Secondary Fleet Capabilities Line */}
+            <Text
+                position={[0, -0.26, 0.002]}
+                fontSize={0.075}
+                letterSpacing={0.07}
+                color="#0284C7"
+                anchorX="center"
+                anchorY="middle"
+                fontWeight="bold"
+                material-toneMapped={false}
+                material-polygonOffset={true}
+                material-polygonOffsetFactor={-2}
+            >
+                EXPEDITED FREIGHT • DOCK HIGH • TSA & TWIC
+            </Text>
+        </group>
+    );
+}
+
+function DecalsAndLettering() {
+    return (
         <group>
-            {/* ========================================================================= */}
-            {/* 1. DRIVER SIDE (LEFT PROFILE, X < 0)                                      */}
-            {/* ========================================================================= */}
+            {/* Front American Flag & Eagle Artwork on Cargo Box */}
+            <FrontEagleBanner />
 
-            {/* --- Driver Side Cab Door USDOT Carrier Decal --- */}
-            <group position={[-1.222, 1.19, 2.94]} rotation={[0, -Math.PI / 2, 0]}>
-                {/* White Compliance Plaque Decal Sticker */}
-                <mesh position={[0, 0, -0.002]}>
-                    <planeGeometry args={[0.38, 0.26]} />
-                    <meshStandardMaterial
-                        color="#FFFFFF"
-                        roughness={0.3}
-                        metalness={0.05}
-                        polygonOffset
-                        polygonOffsetFactor={-1}
-                        polygonOffsetUnits={-1}
-                    />
-                </mesh>
-                {/* Clean Plaque Border */}
-                <mesh position={[0, 0, -0.001]}>
-                    <planeGeometry args={[0.39, 0.27]} />
-                    <meshBasicMaterial
-                        color="#E2E8F0"
-                        polygonOffset
-                        polygonOffsetFactor={-0.5}
-                        polygonOffsetUnits={-0.5}
-                    />
-                </mesh>
-                {/* Official Compliance Typography */}
-                <Text
-                    position={[0, 0, 0.002]}
-                    fontSize={0.025}
-                    lineHeight={1.28}
-                    letterSpacing={0.02}
-                    color="#1E293B"
-                    anchorX="center"
-                    anchorY="middle"
-                    textAlign="center"
-                    fontWeight="bold"
-                    material-toneMapped={false}
-                    material-polygonOffset={true}
-                    material-polygonOffsetFactor={-2}
-                >
-                    {usdotText}
-                </Text>
-            </group>
+            {/* Driver Side Decals */}
+            <CabDoorDecal isDriverSide={true} />
+            <CargoBoxBranding isDriverSide={true} />
 
-            {/* --- Driver Side Cargo Box Enterprise Fleet Branding --- */}
-            <group position={[-1.295, 2.10, -1.18]} rotation={[0, -Math.PI / 2, 0]}>
-                {/* Primary Fleet Header Wordmark */}
-                <Text
-                    position={[0, 0.05, 0.002]}
-                    fontSize={0.32}
-                    letterSpacing={-0.02}
-                    color="#0B1117"
-                    anchorX="center"
-                    anchorY="middle"
-                    fontWeight="black"
-                    material-toneMapped={false}
-                    material-polygonOffset={true}
-                    material-polygonOffsetFactor={-2}
-                >
-                    UMAJA LOGISTICS
-                </Text>
-
-                {/* Subtle Sky Blue Accent Stripe */}
-                <mesh position={[0, -0.16, 0.002]}>
-                    <planeGeometry args={[3.1, 0.022]} />
-                    <meshBasicMaterial
-                        color="#0284C7"
-                        polygonOffset
-                        polygonOffsetFactor={-2}
-                        polygonOffsetUnits={-2}
-                    />
-                </mesh>
-
-                {/* Secondary Fleet Capabilities Line */}
-                <Text
-                    position={[0, -0.26, 0.002]}
-                    fontSize={0.072}
-                    letterSpacing={0.07}
-                    color="#0284C7"
-                    anchorX="center"
-                    anchorY="middle"
-                    fontWeight="bold"
-                    material-toneMapped={false}
-                    material-polygonOffset={true}
-                    material-polygonOffsetFactor={-2}
-                >
-                    EXPEDITED FREIGHT • DOCK HIGH • TSA & TWIC
-                </Text>
-            </group>
-
-            {/* ========================================================================= */}
-            {/* 2. PASSENGER SIDE (RIGHT PROFILE, X > 0)                                   */}
-            {/* ========================================================================= */}
-
-            {/* --- Passenger Side Cab Door USDOT Carrier Decal --- */}
-            <group position={[1.222, 1.19, 2.94]} rotation={[0, Math.PI / 2, 0]}>
-                {/* White Compliance Plaque Decal Sticker */}
-                <mesh position={[0, 0, -0.002]}>
-                    <planeGeometry args={[0.38, 0.26]} />
-                    <meshStandardMaterial
-                        color="#FFFFFF"
-                        roughness={0.3}
-                        metalness={0.05}
-                        polygonOffset
-                        polygonOffsetFactor={-1}
-                        polygonOffsetUnits={-1}
-                    />
-                </mesh>
-                {/* Clean Plaque Border */}
-                <mesh position={[0, 0, -0.001]}>
-                    <planeGeometry args={[0.39, 0.27]} />
-                    <meshBasicMaterial
-                        color="#E2E8F0"
-                        polygonOffset
-                        polygonOffsetFactor={-0.5}
-                        polygonOffsetUnits={-0.5}
-                    />
-                </mesh>
-                {/* Official Compliance Typography */}
-                <Text
-                    position={[0, 0, 0.002]}
-                    fontSize={0.025}
-                    lineHeight={1.28}
-                    letterSpacing={0.02}
-                    color="#1E293B"
-                    anchorX="center"
-                    anchorY="middle"
-                    textAlign="center"
-                    fontWeight="bold"
-                    material-toneMapped={false}
-                    material-polygonOffset={true}
-                    material-polygonOffsetFactor={-2}
-                >
-                    {usdotText}
-                </Text>
-            </group>
-
-            {/* --- Passenger Side Cargo Box Enterprise Fleet Branding --- */}
-            <group position={[1.295, 2.10, -1.18]} rotation={[0, Math.PI / 2, 0]}>
-                {/* Primary Fleet Header Wordmark */}
-                <Text
-                    position={[0, 0.05, 0.002]}
-                    fontSize={0.32}
-                    letterSpacing={-0.02}
-                    color="#0B1117"
-                    anchorX="center"
-                    anchorY="middle"
-                    fontWeight="black"
-                    material-toneMapped={false}
-                    material-polygonOffset={true}
-                    material-polygonOffsetFactor={-2}
-                >
-                    UMAJA LOGISTICS
-                </Text>
-
-                {/* Subtle Sky Blue Accent Stripe */}
-                <mesh position={[0, -0.16, 0.002]}>
-                    <planeGeometry args={[3.1, 0.022]} />
-                    <meshBasicMaterial
-                        color="#0284C7"
-                        polygonOffset
-                        polygonOffsetFactor={-2}
-                        polygonOffsetUnits={-2}
-                    />
-                </mesh>
-
-                {/* Secondary Fleet Capabilities Line */}
-                <Text
-                    position={[0, -0.26, 0.002]}
-                    fontSize={0.072}
-                    letterSpacing={0.07}
-                    color="#0284C7"
-                    anchorX="center"
-                    anchorY="middle"
-                    fontWeight="bold"
-                    material-toneMapped={false}
-                    material-polygonOffset={true}
-                    material-polygonOffsetFactor={-2}
-                >
-                    EXPEDITED FREIGHT • DOCK HIGH • TSA & TWIC
-                </Text>
-            </group>
+            {/* Passenger Side Decals */}
+            <CabDoorDecal isDriverSide={false} />
+            <CargoBoxBranding isDriverSide={false} />
         </group>
     );
 }
@@ -246,6 +277,7 @@ function Model({ activePreset }) {
 }
 
 useGLTF.preload('/models/truck.glb');
+useTexture.preload('/images/truck-flag-eagle.jpg');
 
 export default function TruckCanvas({ activePreset = 'front' }) {
     return (
