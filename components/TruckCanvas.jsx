@@ -90,67 +90,17 @@ function FrontEagleBanner() {
     );
 }
 
-function CabDoorDecal({ isDriverSide }) {
-    const xPos = isDriverSide ? -1.222 : 1.222;
-    const yRot = isDriverSide ? -Math.PI / 2 : Math.PI / 2;
-    const usdotText = `UMAJA LOGISTICS LLC\n128 SUNSET BLVD # 1345\nNEW CASTLE, DE 19720\nMC# 1508261\nDOT # 4008008`;
-
-    return (
-        <group position={[xPos, 1.19, 2.94]} rotation={[0, yRot, 0]}>
-            {/* White Compliance Plaque Decal Sticker */}
-            <mesh position={[0, 0, -0.002]}>
-                <planeGeometry args={[0.38, 0.26]} />
-                <meshStandardMaterial
-                    color="#FFFFFF"
-                    roughness={0.3}
-                    metalness={0.05}
-                    polygonOffset
-                    polygonOffsetFactor={-1}
-                    polygonOffsetUnits={-1}
-                />
-            </mesh>
-            {/* Clean Plaque Border */}
-            <mesh position={[0, 0, -0.001]}>
-                <planeGeometry args={[0.39, 0.27]} />
-                <meshBasicMaterial
-                    color="#E2E8F0"
-                    polygonOffset
-                    polygonOffsetFactor={-0.5}
-                    polygonOffsetUnits={-0.5}
-                />
-            </mesh>
-            {/* Official Compliance Typography */}
-            <Text
-                position={[0, 0, 0.002]}
-                fontSize={0.025}
-                lineHeight={1.28}
-                letterSpacing={0.02}
-                color="#1E293B"
-                anchorX="center"
-                anchorY="middle"
-                textAlign="center"
-                fontWeight="bold"
-                material-toneMapped={false}
-                material-polygonOffset={true}
-                material-polygonOffsetFactor={-2}
-            >
-                {usdotText}
-            </Text>
-        </group>
-    );
-}
-
 function CargoBoxBranding({ isDriverSide }) {
     const xPos = isDriverSide ? -1.295 : 1.295;
     const yRot = isDriverSide ? -Math.PI / 2 : Math.PI / 2;
 
     return (
-        <group position={[xPos, 2.10, -1.18]} rotation={[0, yRot, 0]}>
-            {/* Primary Fleet Header Wordmark */}
+        <group position={[xPos, 2.05, -1.18]} rotation={[0, yRot, 0]}>
+            {/* Clean Bold Fleet Header Wordmark */}
             <Text
-                position={[0, 0.05, 0.002]}
-                fontSize={0.32}
-                letterSpacing={-0.02}
+                position={[0, 0, 0.002]}
+                fontSize={0.36}
+                letterSpacing={-0.01}
                 color="#0B1117"
                 anchorX="center"
                 anchorY="middle"
@@ -160,33 +110,6 @@ function CargoBoxBranding({ isDriverSide }) {
                 material-polygonOffsetFactor={-2}
             >
                 UMAJA LOGISTICS
-            </Text>
-
-            {/* Subtle Sky Blue Accent Stripe */}
-            <mesh position={[0, -0.16, 0.002]}>
-                <planeGeometry args={[3.1, 0.022]} />
-                <meshBasicMaterial
-                    color="#0284C7"
-                    polygonOffset
-                    polygonOffsetFactor={-2}
-                    polygonOffsetUnits={-2}
-                />
-            </mesh>
-
-            {/* Secondary Fleet Capabilities Line */}
-            <Text
-                position={[0, -0.26, 0.002]}
-                fontSize={0.072}
-                letterSpacing={0.07}
-                color="#0284C7"
-                anchorX="center"
-                anchorY="middle"
-                fontWeight="bold"
-                material-toneMapped={false}
-                material-polygonOffset={true}
-                material-polygonOffsetFactor={-2}
-            >
-                EXPEDITED FREIGHT • DOCK HIGH • TSA & TWIC
             </Text>
         </group>
     );
@@ -198,12 +121,10 @@ function DecalsAndLettering() {
             {/* Front American Flag & Eagle Artwork on Cargo Box */}
             <FrontEagleBanner />
 
-            {/* Driver Side Decals & Lettering */}
-            <CabDoorDecal isDriverSide={true} />
+            {/* Driver Side Clean Cargo Box Branding */}
             <CargoBoxBranding isDriverSide={true} />
 
-            {/* Passenger Side Decals & Lettering */}
-            <CabDoorDecal isDriverSide={false} />
+            {/* Passenger Side Clean Cargo Box Branding */}
             <CargoBoxBranding isDriverSide={false} />
         </group>
     );
