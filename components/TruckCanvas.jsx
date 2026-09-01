@@ -2,7 +2,7 @@
 
 import React, { Suspense, useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF, useTexture, ContactShadows, Center, Bounds, Text } from '@react-three/drei';
+import { OrbitControls, useGLTF, useTexture, ContactShadows, Center, Bounds, Text, useProgress } from '@react-three/drei';
 import * as THREE from 'three';
 
 function isWebGLSupported() {
@@ -16,6 +16,44 @@ function isWebGLSupported() {
     } catch {
         return false;
     }
+}
+
+function CanvasLoader() {
+    const { active, progress } = useProgress();
+    const [visible, setVisible] = useState(true);
+
+    useEffect(() => {
+        if (!active && progress === 100) {
+            const timer = setTimeout(() => setVisible(false), 450);
+            return () => clearTimeout(timer);
+        } else {
+            setVisible(true);
+        }
+    }, [active, progress]);
+
+    if (!visible) return null;
+
+    return (
+        <div
+            className={`absolute inset-0 z-20 flex flex-col items-center justify-center bg-[#080C10]/85 backdrop-blur-sm transition-opacity duration-500 pointer-events-none ${
+                !active && progress === 100 ? 'opacity-0' : 'opacity-100'
+            }`}
+        >
+            <div className="w-56 flex flex-col items-center gap-2.5">
+                <div className="flex items-center justify-between w-full text-xs font-mono tracking-wider text-slate-300">
+                    <span className="text-sky-400 font-bold uppercase">Loading Fleet Assets</span>
+                    <span className="font-semibold text-slate-200">{Math.round(progress)}%</span>
+                </div>
+                {/* Thin Cyan Progress Bar */}
+                <div className="w-full h-1 bg-slate-800/80 rounded-full overflow-hidden">
+                    <div
+                        className="h-full bg-sky-500 transition-all duration-200 ease-out rounded-full shadow-[0_0_10px_rgba(14,165,233,0.7)]"
+                        style={{ width: `${progress}%` }}
+                    />
+                </div>
+            </div>
+        </div>
+    );
 }
 
 function FrontEagleBanner() {
@@ -245,7 +283,10 @@ export default function TruckCanvas({ activePreset = 'front' }) {
     }
 
     return (
-        <div className="w-full h-full cursor-grab active:cursor-grabbing select-none pointer-events-auto">
+        <div className="relative w-full h-full cursor-grab active:cursor-grabbing select-none pointer-events-auto">
+            {/* Sleek Minimalist Progress Loader */}
+            <CanvasLoader />
+
             <Canvas
                 camera={{ position: [5.2, 1.9, 5.6], fov: 36 }}
                 dpr={[1, 1.5]}
