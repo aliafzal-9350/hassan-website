@@ -1,9 +1,22 @@
 'use client';
 
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF, useTexture, Environment, ContactShadows, Center, Bounds, Text } from '@react-three/drei';
+import { OrbitControls, useGLTF, useTexture, ContactShadows, Center, Bounds, Text } from '@react-three/drei';
 import * as THREE from 'three';
+
+function isWebGLSupported() {
+    if (typeof window === 'undefined') return true;
+    try {
+        const canvas = document.createElement('canvas');
+        return Boolean(
+            window.WebGLRenderingContext &&
+            (canvas.getContext('webgl') || canvas.getContext('experimental-webgl') || canvas.getContext('webgl2'))
+        );
+    } catch {
+        return false;
+    }
+}
 
 function FrontEagleBanner() {
     const flagTexture = useTexture('/images/truck-flag-eagle.jpg');
@@ -39,17 +52,67 @@ function FrontEagleBanner() {
     );
 }
 
+function CabDoorDecal({ isDriverSide }) {
+    const xPos = isDriverSide ? -1.222 : 1.222;
+    const yRot = isDriverSide ? -Math.PI / 2 : Math.PI / 2;
+    const usdotText = `UMAJA LOGISTICS LLC\n128 SUNSET BLVD # 1345\nNEW CASTLE, DE 19720\nMC# 1508261\nDOT # 4008008`;
+
+    return (
+        <group position={[xPos, 1.19, 2.94]} rotation={[0, yRot, 0]}>
+            {/* White Compliance Plaque Decal Sticker */}
+            <mesh position={[0, 0, -0.002]}>
+                <planeGeometry args={[0.38, 0.26]} />
+                <meshStandardMaterial
+                    color="#FFFFFF"
+                    roughness={0.3}
+                    metalness={0.05}
+                    polygonOffset
+                    polygonOffsetFactor={-1}
+                    polygonOffsetUnits={-1}
+                />
+            </mesh>
+            {/* Clean Plaque Border */}
+            <mesh position={[0, 0, -0.001]}>
+                <planeGeometry args={[0.39, 0.27]} />
+                <meshBasicMaterial
+                    color="#E2E8F0"
+                    polygonOffset
+                    polygonOffsetFactor={-0.5}
+                    polygonOffsetUnits={-0.5}
+                />
+            </mesh>
+            {/* Official Compliance Typography */}
+            <Text
+                position={[0, 0, 0.002]}
+                fontSize={0.025}
+                lineHeight={1.28}
+                letterSpacing={0.02}
+                color="#1E293B"
+                anchorX="center"
+                anchorY="middle"
+                textAlign="center"
+                fontWeight="bold"
+                material-toneMapped={false}
+                material-polygonOffset={true}
+                material-polygonOffsetFactor={-2}
+            >
+                {usdotText}
+            </Text>
+        </group>
+    );
+}
+
 function CargoBoxBranding({ isDriverSide }) {
     const xPos = isDriverSide ? -1.295 : 1.295;
     const yRot = isDriverSide ? -Math.PI / 2 : Math.PI / 2;
 
     return (
-        <group position={[xPos, 2.05, -1.18]} rotation={[0, yRot, 0]}>
-            {/* Clean Bold Fleet Header Wordmark */}
+        <group position={[xPos, 2.10, -1.18]} rotation={[0, yRot, 0]}>
+            {/* Primary Fleet Header Wordmark */}
             <Text
-                position={[0, 0, 0.002]}
-                fontSize={0.36}
-                letterSpacing={-0.01}
+                position={[0, 0.05, 0.002]}
+                fontSize={0.32}
+                letterSpacing={-0.02}
                 color="#0B1117"
                 anchorX="center"
                 anchorY="middle"
@@ -59,6 +122,33 @@ function CargoBoxBranding({ isDriverSide }) {
                 material-polygonOffsetFactor={-2}
             >
                 UMAJA LOGISTICS
+            </Text>
+
+            {/* Subtle Sky Blue Accent Stripe */}
+            <mesh position={[0, -0.16, 0.002]}>
+                <planeGeometry args={[3.1, 0.022]} />
+                <meshBasicMaterial
+                    color="#0284C7"
+                    polygonOffset
+                    polygonOffsetFactor={-2}
+                    polygonOffsetUnits={-2}
+                />
+            </mesh>
+
+            {/* Secondary Fleet Capabilities Line */}
+            <Text
+                position={[0, -0.26, 0.002]}
+                fontSize={0.072}
+                letterSpacing={0.07}
+                color="#0284C7"
+                anchorX="center"
+                anchorY="middle"
+                fontWeight="bold"
+                material-toneMapped={false}
+                material-polygonOffset={true}
+                material-polygonOffsetFactor={-2}
+            >
+                EXPEDITED FREIGHT • DOCK HIGH • TSA & TWIC
             </Text>
         </group>
     );
@@ -70,10 +160,12 @@ function DecalsAndLettering() {
             {/* Front American Flag & Eagle Artwork on Cargo Box */}
             <FrontEagleBanner />
 
-            {/* Driver Side Clean Cargo Box Branding */}
+            {/* Driver Side Decals & Lettering */}
+            <CabDoorDecal isDriverSide={true} />
             <CargoBoxBranding isDriverSide={true} />
 
-            {/* Passenger Side Clean Cargo Box Branding */}
+            {/* Passenger Side Decals & Lettering */}
+            <CabDoorDecal isDriverSide={false} />
             <CargoBoxBranding isDriverSide={false} />
         </group>
     );
@@ -129,25 +221,48 @@ useGLTF.preload('/models/truck.glb');
 useTexture.preload('/images/truck-flag-eagle.jpg');
 
 export default function TruckCanvas({ activePreset = 'front' }) {
+    const [hasWebGL, setHasWebGL] = useState(true);
+
+    useEffect(() => {
+        setHasWebGL(isWebGLSupported());
+    }, []);
+
+    if (!hasWebGL) {
+        return (
+            <div className="w-full h-full flex flex-col items-center justify-center bg-[#080C10] border border-white/[0.08] rounded-xl p-6 text-center text-slate-300">
+                <div className="w-12 h-12 rounded-full bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-3">
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                    </svg>
+                </div>
+                <p className="text-sm font-bold text-white mb-1">3D Fleet Viewer Unavailable</p>
+                <p className="text-xs text-slate-400 max-w-xs font-mono">
+                    WebGL hardware acceleration is disabled or blocked in your browser environment.
+                </p>
+            </div>
+        );
+    }
+
     return (
         <div className="w-full h-full cursor-grab active:cursor-grabbing select-none pointer-events-auto">
             <Canvas
                 camera={{ position: [5.2, 1.9, 5.6], fov: 36 }}
                 dpr={[1, 1.5]}
                 gl={{
-                    toneMapping: THREE.ACESFilmicToneMapping,
-                    toneMappingExposure: 1.25,
                     antialias: true,
                     alpha: true,
+                    toneMapping: THREE.ACESFilmicToneMapping,
+                    toneMappingExposure: 1.2,
                     powerPreference: 'high-performance',
                 }}
             >
-                {/* Automotive Titanium & Ice Blue Studio Lighting */}
-                <ambientLight intensity={0.85} />
-                <directionalLight position={[10, 15, 8]} intensity={2.9} castShadow />
-                <directionalLight position={[-10, 10, -6]} intensity={1.5} color="#94A3B8" />
-                <pointLight position={[-6, 4, 6]} intensity={1.2} color="#38BDF8" />
-                <directionalLight position={[0, -4, 4]} intensity={0.25} />
+                {/* 100% Self-Contained High-End Studio Lighting Rig (Zero External CDN Calls) */}
+                <ambientLight intensity={1.1} />
+                <directionalLight position={[10, 15, 10]} intensity={2.2} castShadow />
+                <directionalLight position={[-10, 10, -10]} intensity={1.0} color="#E0F2FE" />
+                <directionalLight position={[0, -10, 0]} intensity={0.4} />
+                <hemisphereLight skyColor="#FFFFFF" groundColor="#0F172A" intensity={0.8} />
 
                 <Suspense fallback={null}>
                     {/* Auto-scaling and Centering Bounds */}
@@ -155,7 +270,6 @@ export default function TruckCanvas({ activePreset = 'front' }) {
                         <Model activePreset={activePreset} />
                     </Bounds>
 
-                    <Environment preset="city" />
                     <ContactShadows
                         position={[0, 0, 0]}
                         opacity={0.85}
