@@ -1,4 +1,5 @@
 import './globals.css';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata = {
   metadataBase: new URL('https://umajalogistics.online'),
@@ -20,7 +21,10 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="preload" href="/models/truck.glb" as="fetch" crossOrigin="anonymous" />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
